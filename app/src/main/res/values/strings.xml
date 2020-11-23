@@ -12,4 +12,19 @@
     <string name="by_creating_an_account_you_agree_on">By creating an account, you agree to our</string>
     <string name="invalid_input">Invalid input</string>
     <string name="login_failed">Login failed</string>
+    <string name="register">Register</string>
+    <string name="already_registered">Already registered?</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="insufficient_password">Password must contain more than 7 characters</string>
+    <string name="register_failed">Registering failed</string>
+    <string name="set_up_profile">Set up Profile</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="bio">Bio</string>
+    <string name="finish">Finish</string>
+    <string name="no_photo_selected">No photo is selected</string>
+    <string name="insufficient_username">Username must contain more than 4 characters</string>
+    <string name="username_taken">Username taken</string>
+    <string name="invalid_name">Invalid name</string>
+    <string name="empty_bio">Empty bio</string>
 </resources>
