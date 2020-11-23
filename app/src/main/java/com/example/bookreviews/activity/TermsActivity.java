@@ -1,4 +1,4 @@
-package com.example.bookreviews;
+package com.example.bookreviews.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

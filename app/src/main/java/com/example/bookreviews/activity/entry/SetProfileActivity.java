@@ -1,4 +1,4 @@
-package com.example.bookreviews;
+package com.example.bookreviews.activity.entry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookreviews.R;
+import com.example.bookreviews.StaticClass;
+import com.example.bookreviews.activity.core.CoreActivity;
+import com.example.bookreviews.activity.TermsActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,4 +1,4 @@
-package com.example.bookreviews;
+package com.example.bookreviews.activity.entry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookreviews.R;
+import com.example.bookreviews.StaticClass;
+import com.example.bookreviews.activity.core.CoreActivity;
+import com.example.bookreviews.activity.TermsActivity;
+import com.example.bookreviews.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

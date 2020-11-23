@@ -1,4 +1,4 @@
-package com.example.bookreviews;
+package com.example.bookreviews.model;
 
 public class User {
     private String id, name, bio, username;
