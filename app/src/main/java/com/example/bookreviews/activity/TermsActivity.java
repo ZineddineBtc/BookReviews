@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.bookreviews.R;
+
 public class TermsActivity extends AppCompatActivity {
 
     @Override
