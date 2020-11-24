@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.example.bookreviews.R;
 import com.example.bookreviews.StaticClass;
-import com.example.bookreviews.activity.core.CoreActivity;
 import com.example.bookreviews.activity.TermsActivity;
+import com.example.bookreviews.activity.core.CoreActivity;
 import com.example.bookreviews.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
