@@ -20,6 +20,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookreviews.R;
+import com.example.bookreviews.StaticClass;
+import com.example.bookreviews.activity.core.AddBookReviewActivity;
+import com.example.bookreviews.adapter.SearchBookAdapter;
+import com.example.bookreviews.adapter.SearchUserAdapter;
+import com.example.bookreviews.model.Book;
+import com.example.bookreviews.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,7 +42,7 @@ public class SearchFragment extends Fragment {
 
     private View fragmentView;
     private Context context;
-    /*private FloatingActionButton addBookFAB;
+    private FloatingActionButton addBookReviewFAB;
     private EditText searchET;
     private TextView noResultsTV, booksTV, usersTV;
     private RecyclerView booksRV, usersRV;
@@ -46,19 +52,19 @@ public class SearchFragment extends Fragment {
     private ArrayList<User> usersList = new ArrayList<>();
     private FirebaseFirestore database;
     private String email;
-    private boolean booksUsers = false; // false=>books | true=>users*/
+    private boolean booksUsers = false; // false=>books | true=>users
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentView = inflater.inflate(R.layout.fragment_search, container, false);
         context = fragmentView.getContext();
         Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
-        /*getInstances();
+        getInstances();
         findViewsByIds();
         setListeners();
-        setRecyclerViews();*/
+        setRecyclerViews();
         return fragmentView;
-    }/*
+    }
     private void getInstances(){
         email = context.getSharedPreferences(StaticClass.SHARED_PREFERENCES, Context.MODE_PRIVATE).getString(StaticClass.EMAIL, "no email");
         database = FirebaseFirestore.getInstance();
@@ -68,7 +74,7 @@ public class SearchFragment extends Fragment {
         noResultsTV = fragmentView.findViewById(R.id.noResultsTV);
         booksRV = fragmentView.findViewById(R.id.booksRV);
         usersRV = fragmentView.findViewById(R.id.usersRV);
-        addBookFAB = fragmentView.findViewById(R.id.addBookFAB);
+        addBookReviewFAB = fragmentView.findViewById(R.id.addBookFAB);
         booksTV = fragmentView.findViewById(R.id.booksTV);
         usersTV = fragmentView.findViewById(R.id.usersTV);
     }
@@ -92,8 +98,8 @@ public class SearchFragment extends Fragment {
 
             }
         });
-        addBookFAB.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) { startActivity(new Intent(context, AddBookActivity.class)); }});
+        addBookReviewFAB.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { startActivity(new Intent(context, AddBookReviewActivity.class)); }});
         booksTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,8 +116,8 @@ public class SearchFragment extends Fragment {
     private void toggleSearchTab(boolean tab){
         booksUsers = tab;
         booksTV.setBackground(!tab ?
-                  context.getDrawable(R.drawable.special_background_left_tab_active) :
-                  context.getDrawable(R.drawable.special_background_left_tab_nonactive));
+                context.getDrawable(R.drawable.special_background_left_tab_active) :
+                context.getDrawable(R.drawable.special_background_left_tab_nonactive));
         booksTV.setTextColor(!tab ?
                 context.getColor(R.color.white) :
                 context.getColor(R.color.special));
@@ -150,10 +156,8 @@ public class SearchFragment extends Fragment {
     private void searchBook(String queryText){
         noResultsTV.setVisibility(View.GONE);
         database.collection("books")
-                .orderBy("title")
                 .whereGreaterThanOrEqualTo("title", queryText.toUpperCase())
                 .whereLessThanOrEqualTo("title", queryText.toLowerCase()+"\uF8FF")
-                .orderBy("time", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -178,34 +182,10 @@ public class SearchFragment extends Fragment {
     private void getBookFromDocument(DocumentSnapshot document){
         Book book = new Book();
         book.setId(document.getId());
-        book.setPrice(String.valueOf(document.get("price")));
-        book.setDescription(String.valueOf(document.get("description")));
         book.setTitle(String.valueOf(document.get("title")));
-        getBookUser(String.valueOf(document.get("user")), book);
-    }
-    private void getBookUser(final String userID, final Book book){
-        database.collection("users")
-                .document(userID)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot document) {
-                        User user = new User();
-                        user.setId(userID);
-                        user.setName(String.valueOf(document.get("name")));
-                        user.setCity(String.valueOf(document.get("city")));
-                        user.setPhone(String.valueOf(document.get("phone")));
-                        book.setUser(user);
-                        booksList.add(book);
-                        searchBookAdapter.notifyDataSetChanged();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Failed at getting book user", Toast.LENGTH_LONG).show();
-                    }
-                });
+        book.setReviewsNumber((long) document.get("reviews"));
+        booksList.add(book);
+        searchBookAdapter.notifyDataSetChanged();
     }
     private void searchUser(String queryText){
         noResultsTV.setVisibility(View.GONE);
@@ -237,10 +217,9 @@ public class SearchFragment extends Fragment {
         if(document.getId().equals(email)) return;
         User user = new User();
         user.setId(document.getId());
+        user.setUsername(String.valueOf(document.get("city")));
         user.setName(String.valueOf(document.get("name")));
-        user.setCity(String.valueOf(document.get("city")));
-        user.setPhone(String.valueOf(document.get("phone")));
         usersList.add(user);
         searchUserAdapter.notifyDataSetChanged();
-    }*/
+    }
 }
