@@ -1,8 +1,41 @@
 package com.example.bookreviews.model;
 
 public class Review {
-    private String book, reviewText, userUsername, userName;
+    private String id, book, reviewText,reviewerID, reviewerUsername, reviewerName;
     private long time, likes, dislikes;
+    private boolean liked, disliked;
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
+    public boolean isDisliked() {
+        return disliked;
+    }
+
+    public void setDisliked(boolean disliked) {
+        this.disliked = disliked;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getReviewerID() {
+        return reviewerID;
+    }
+
+    public void setReviewerID(String reviewerID) {
+        this.reviewerID = reviewerID;
+    }
 
     public String getBook() {
         return book;
@@ -20,20 +53,20 @@ public class Review {
         this.reviewText = reviewText;
     }
 
-    public String getUserUsername() {
-        return userUsername;
+    public String getReviewerUsername() {
+        return reviewerUsername;
     }
 
-    public void setUserUsername(String userUsername) {
-        this.userUsername = userUsername;
+    public void setReviewerUsername(String reviewerUsername) {
+        this.reviewerUsername = reviewerUsername;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     public long getTime() {

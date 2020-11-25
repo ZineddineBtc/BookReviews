@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookreviews.R;
 import com.example.bookreviews.StaticClass;
+import com.example.bookreviews.activity.core.BookReviewsActivity;
 import com.example.bookreviews.activity.core.ProfileActivity;
 import com.example.bookreviews.model.Book;
 import com.example.bookreviews.model.User;
@@ -50,8 +51,8 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.Vi
         holder.bookLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ProfileActivity.class)
-                        .putExtra(StaticClass.PROFILE_ID, book.getId()));
+                context.startActivity(new Intent(context, BookReviewsActivity.class)
+                        .putExtra(StaticClass.BOOK_ID, book.getId()));
             }
         });
     }

@@ -13,6 +13,8 @@ public class StaticClass {
     public static String BIO = "bio";
     public static String PROFILE_ID = "profile";
     public static String BOOK_ID = "book";
+    public static String BOOK_TITLE = "book-title";
+    public static String BOOK_REVIEWS_NUMBER = "book-reviews-number";
     public static String TO = "to";
     public static String PROFILE_FRAGMENT = "profile_fragment";
     public static String SET_PROFILE_ACTIVITY = "set_profile_activity";
