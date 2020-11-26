@@ -43,4 +43,5 @@
     <string name="book_title">Book title</string>
     <string name="time">time</string>
     <string name="review">Review</string>
+    <string name="no_reviews_posted_yet_by_this_user">No reviews posted yet by this user</string>
 </resources>

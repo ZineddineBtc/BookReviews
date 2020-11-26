@@ -77,7 +77,7 @@ public class Review {
         this.time = time;
     }
 
-    public long getLikes() {
+    public long getLikesCount() {
         return likes;
     }
 
@@ -85,7 +85,7 @@ public class Review {
         this.likes = likes;
     }
 
-    public long getDislikes() {
+    public long getDislikesCount() {
         return dislikes;
     }
 

@@ -20,7 +20,6 @@ import com.example.bookreviews.R;
 import com.example.bookreviews.StaticClass;
 import com.example.bookreviews.activity.core.ProfileActivity;
 import com.example.bookreviews.model.Review;
-import com.example.bookreviews.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FieldValue;
@@ -62,21 +61,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.usernameTV.setText(review.getReviewerUsername());
         holder.timeTV.setText(castTime(review.getTime()));
         holder.reviewTV.setText(review.getReviewText());
-        holder.likeTV.setText(String.valueOf(review.getLikes()));
-        holder.dislikeTV.setText(String.valueOf(review.getDislikes()));
-        holder.reviewerLL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, ProfileActivity.class)
-                        .putExtra(StaticClass.PROFILE_ID, review.getReviewerID()));
-            }
-        });
-        holder.likeIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                like(holder, review);
-            }
-        });
+        /*setLikesCount(holder, (int) review.getLikesCount());
+        setDislikesCount(holder, (int) review.getDislikesCount());
+        setListeners(holder, position);*/
     }
     private void setUserPhoto(final ViewHolder holder, String reviewerID){
         final long ONE_MEGABYTE = 1024 * 1024 * 20;
@@ -99,16 +86,110 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     private String castTime(long time){
         return new SimpleDateFormat("dd MMM. yyyy HH:mm").format(new Date(time));
     }
-    private void like(ViewHolder holder, Review review){
-        database.collection("reviews")
-                .document(review.getId())
-                .update("likes", FieldValue.increment(1));
+    /*private void setLikesCount(ViewHolder holder, int likesCount){
+        StringBuilder likesText = new StringBuilder();
+        if(likesCount>1000 && likesCount<1000000){
+            likesCount = likesCount/1000;
+            likesText.append(likesCount).append("K");
+        }else if(likesCount>1000000){
+            likesCount = likesCount/1000000;
+            likesText.append(likesCount).append("M");
+        }else{
+            likesText.append(likesCount);
+        }
+        holder.likesCountTV.setText(likesText);
     }
-    private void dislike(ViewHolder holder, Review review){
-        database.collection("reviews")
-                .document(review.getId())
-                .update("dislikes", FieldValue.increment(-1));
+    private void setDislikesCount(ViewHolder holder, int dislikesCount){
+        StringBuilder dislikesText = new StringBuilder();
+        if(dislikesCount>1000 && dislikesCount<1000000){
+            dislikesCount = dislikesCount/1000;
+            dislikesText.append(dislikesCount).append("K");
+        }else if(dislikesCount>1000000){
+            dislikesCount = dislikesCount/1000000;
+            dislikesText.append(dislikesCount).append("M");
+        }else{
+            dislikesText.append(dislikesCount);
+        }
+        holder.dislikesCountTV.setText(dislikesText);
     }
+    private void setListeners(final ViewHolder holder, final int position){
+        holder.likeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { likeOnClickListener(holder, position); }
+        });
+        holder.dislikeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { dislikeOnClickListener(holder, position); }});
+        holder.reviewerLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ProfileActivity.class)
+                        .putExtra(StaticClass.PROFILE_ID,
+                                reviewsList.get(position).getReviewerID()));
+            }
+        });
+    }
+    private void likeOnClickListener(ViewHolder holder, int position){
+        if(holder.liked){
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("likes-users", FieldValue.arrayRemove(
+                            holder.sharedPreferences.getString(StaticClass.EMAIL, " ")));
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("likes-count", FieldValue.increment(-1));
+            holder.likesIV.setImageDrawable(context.getDrawable(R.drawable.ic_like_grey));
+            quizList.get(position).setLikesCount(quizList.get(position).getLikesCount()-1);
+            holder.liked = false;
+        }else{
+            if(holder.disliked){
+                dislikeOnClickListener(holder, position);
+            }
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("likes-users", FieldValue.arrayUnion(
+                            holder.sharedPreferences.getString(StaticClass.EMAIL, " ")));
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("likes-count", FieldValue.increment(1));
+            holder.likesIV.setImageDrawable(context.getDrawable(R.drawable.ic_like_special));
+            quizList.get(position).setLikesCount(quizList.get(position).getLikesCount()+1);
+            holder.liked = true;
+        }
+        setLikesCount(holder, position);
+    }
+    private void dislikeOnClickListener(ViewHolder holder, int position){
+        if(holder.disliked){
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("dislikes-users", FieldValue.arrayRemove(
+                            holder.sharedPreferences.getString(StaticClass.EMAIL, " ")));
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("dislikes-count", FieldValue.increment(-1));
+            holder.dislikesIV.setImageDrawable(context.getDrawable(R.drawable.ic_dislike_grey));
+            holder.dislikesCountTV.setText(
+                    String.valueOf(quizList.get(position).getDislikesCount()-1));
+            quizList.get(position).setDislikesCount(quizList.get(position).getDislikesCount()-1);
+            holder.disliked = false;
+        }else{
+            if(holder.liked){
+                likeOnClickListener(holder, position);
+            }
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("dislikes-users", FieldValue.arrayUnion(
+                            holder.sharedPreferences.getString(StaticClass.EMAIL, " ")));
+            holder.database.collection("quizzes")
+                    .document(quizList.get(position).getId())
+                    .update("dislikes-count", FieldValue.increment(1));
+            holder.dislikesIV.setImageDrawable(context.getDrawable(R.drawable.ic_dislike_special));
+            quizList.get(position).setDislikesCount(quizList.get(position).getDislikesCount()+1);
+            holder.disliked = true;
+        }
+        setDislikesCount(holder, position);
+    }
+*/
 
     @Override
     public int getItemCount() {
@@ -120,8 +201,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         private LinearLayout reviewerLL;
         private ImageView photoIV, likeIV, dislikeIV;
-        private TextView nameTV, usernameTV, timeTV, reviewTV, likeTV, dislikeTV;
+        private TextView nameTV, usernameTV, timeTV, reviewTV, likesCountTV, dislikesCountTV;
         private View itemView;
+        private boolean liked, disliked;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -138,8 +220,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             reviewTV = itemView.findViewById(R.id.reviewTV);
             likeIV = itemView.findViewById(R.id.likeIV);
             dislikeIV = itemView.findViewById(R.id.dislikeIV);
-            likeTV = itemView.findViewById(R.id.likeTV);
-            dislikeTV = itemView.findViewById(R.id.dislikeTV);
+            likesCountTV = itemView.findViewById(R.id.likeTV);
+            dislikesCountTV = itemView.findViewById(R.id.dislikeTV);
         }
 
         @Override
