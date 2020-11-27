@@ -34,7 +34,7 @@
     <string name="my_reviews">My reviews</string>
     <string name="sign_out">Sign out</string>
     <string name="error">Error</string>
-    <string name="search_hint">Search a book</string>
+    <string name="search_hint">Search a book or a user</string>
     <string name="no_results">No results</string>
     <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
@@ -44,4 +44,9 @@
     <string name="time">time</string>
     <string name="review">Review</string>
     <string name="no_reviews_posted_yet_by_this_user">No reviews posted yet by this user</string>
+    <string name="review">Review</string>
+    <string name="search_a_book">Search a book</string>
+    <string name="add">ADD</string>
+    <string name="unspecified_title">Unspecified book title</string>
+    <string name="unspecified_review">Unspecified review</string>
 </resources>
