@@ -49,4 +49,5 @@
     <string name="add">ADD</string>
     <string name="unspecified_title">Unspecified book title</string>
     <string name="unspecified_review">Unspecified review</string>
+    <string name="no_reviews_made_by_this_profile_yet">No reviews made by this profile yet</string>
 </resources>
