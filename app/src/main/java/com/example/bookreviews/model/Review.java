@@ -1,9 +1,28 @@
 package com.example.bookreviews.model;
 
+import java.util.ArrayList;
+
 public class Review {
     private String id, book, reviewText,reviewerID, reviewerUsername, reviewerName;
-    private long time, likes, dislikes;
+    private long time, likesCount, dislikesCount;
     private boolean liked, disliked;
+    private ArrayList<String> likesUsers, dislikesUsers;
+
+    public ArrayList<String> getLikesUsers() {
+        return likesUsers;
+    }
+
+    public void setLikesUsers(ArrayList<String> likesUsers) {
+        this.likesUsers = likesUsers;
+    }
+
+    public ArrayList<String> getDislikesUsers() {
+        return dislikesUsers;
+    }
+
+    public void setDislikesUsers(ArrayList<String> dislikesUsers) {
+        this.dislikesUsers = dislikesUsers;
+    }
 
     public boolean isLiked() {
         return liked;
@@ -78,18 +97,18 @@ public class Review {
     }
 
     public long getLikesCount() {
-        return likes;
+        return likesCount;
     }
 
-    public void setLikes(long likes) {
-        this.likes = likes;
+    public void setLikesCount(long likesCount) {
+        this.likesCount = likesCount;
     }
 
     public long getDislikesCount() {
-        return dislikes;
+        return dislikesCount;
     }
 
-    public void setDislikes(long dislikes) {
-        this.dislikes = dislikes;
+    public void setDislikesCount(long dislikesCount) {
+        this.dislikesCount = dislikesCount;
     }
 }

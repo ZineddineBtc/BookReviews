@@ -27,6 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -124,9 +125,11 @@ public class AddBookReviewActivity extends AppCompatActivity {
         map.put("user", email);
         map.put("title", title);
         map.put("review", reviewText);
-        map.put("time", System.currentTimeMillis());
         map.put("likes-count", 0);
         map.put("dislikes-count", 0);
+        map.put("likes-users", new ArrayList<String>());
+        map.put("dislikes-users", new ArrayList<String>());
+        map.put("time", System.currentTimeMillis());
         return map;
     }
     private void displayErrorTV(int resourceID) {

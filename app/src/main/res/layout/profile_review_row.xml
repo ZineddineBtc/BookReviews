@@ -15,23 +15,23 @@
         android:gravity="center"
         android:layout_marginStart="5dp">
         <ImageView
-            android:id="@+id/likeIV"
+            android:id="@+id/likesIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_like_grey"/>
         <TextView
-            android:id="@+id/likeTV"
+            android:id="@+id/likesCountTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"
             android:layout_marginBottom="5dp"/>
         <TextView
-            android:id="@+id/dislikeTV"
+            android:id="@+id/dislikesCountTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"/>
         <ImageView
-            android:id="@+id/dislikeIV"
+            android:id="@+id/dislikesIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_dislike_grey"/>

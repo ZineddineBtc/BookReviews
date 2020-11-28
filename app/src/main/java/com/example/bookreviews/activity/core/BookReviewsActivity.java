@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -102,8 +101,8 @@ public class BookReviewsActivity extends AppCompatActivity {
         review.setReviewerUsername(String.valueOf(document.get("reviewer-username")));
         review.setReviewerName(String.valueOf(document.get("reviewer-name")));
         review.setTime((long) document.get("time"));
-        review.setLikes((long) document.get("likes"));
-        review.setDislikes((long) document.get("dislikes"));
+        review.setLikesCount((long) document.get("likes"));
+        review.setDislikesCount((long) document.get("dislikes"));
         review.setReviewText(String.valueOf(document.get("review-text")));
         reviewsList.add(review);
         adapter.notifyDataSetChanged();
