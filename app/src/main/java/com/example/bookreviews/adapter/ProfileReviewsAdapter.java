@@ -68,7 +68,6 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
     }
     private void setTVs(ViewHolder holder, Review review){
         holder.nameTV.setText(user.getName());
-        holder.bioTV.setText(user.getBio());
         holder.usernameTV.setText(user.getUsername());
         holder.timeTV.setText(castTime(review.getTime()));
         holder.titleTV.setText(review.getBook());
@@ -198,7 +197,7 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView photoIV, likesIV, dislikesIV;
-        private TextView nameTV, bioTV, usernameTV, timeTV, titleTV, reviewTextTV,
+        private TextView nameTV, usernameTV, timeTV, titleTV, reviewTextTV,
                             likesCountTV, dislikesCountTV;
         private boolean liked, disliked;
         private View itemView;
@@ -212,10 +211,9 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
         private void findViewsByIds(){
             photoIV = itemView.findViewById(R.id.photoIV);
             nameTV = itemView.findViewById(R.id.nameTV);
-            bioTV = itemView.findViewById(R.id.bioTV);
             usernameTV = itemView.findViewById(R.id.usernameTV);
             timeTV = itemView.findViewById(R.id.timeTV);
-            titleTV = itemView.findViewById(R.id.titleTV);
+            titleTV = itemView.findViewById(R.id.bookTitleTV);
             reviewTextTV = itemView.findViewById(R.id.reviewTV);
             likesIV = itemView.findViewById(R.id.likesIV);
             dislikesIV = itemView.findViewById(R.id.dislikesIV);

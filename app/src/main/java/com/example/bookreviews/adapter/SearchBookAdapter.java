@@ -50,7 +50,9 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.Vi
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, BookReviewsActivity.class)
-                        .putExtra(StaticClass.BOOK_ID, book.getId()));
+                        .putExtra(StaticClass.BOOK_ID, book.getId())
+                        .putExtra(StaticClass.BOOK_TITLE, book.getTitle())
+                        .putExtra(StaticClass.BOOK_REVIEWS_NUMBER, book.getReviewsNumber()));
             }
         });
     }

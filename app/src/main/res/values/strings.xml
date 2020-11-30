@@ -42,12 +42,12 @@
     <string name="reviews">Reviews</string>
     <string name="book_title">Book title</string>
     <string name="time">time</string>
-    <string name="review">Review</string>
     <string name="no_reviews_posted_yet_by_this_user">No reviews posted yet by this user</string>
     <string name="review">Review</string>
     <string name="search_a_book">Search a book</string>
-    <string name="add">ADD</string>
     <string name="unspecified_title">Unspecified book title</string>
     <string name="unspecified_review">Unspecified review</string>
     <string name="no_reviews_made_by_this_profile_yet">No reviews made by this profile yet</string>
+    <string name="add">ADD</string>
+    <string name="cancel">CANCEL</string>
 </resources>

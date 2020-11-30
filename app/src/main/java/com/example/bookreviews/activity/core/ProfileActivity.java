@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
         nameTV = findViewById(R.id.nameTV);
         usernameTV = findViewById(R.id.usernameTV);
         bioTV = findViewById(R.id.bioTV);
-        reviewsRV = findViewById(R.id.booksRV);
+        reviewsRV = findViewById(R.id.reviewsRV);
     }
     private void getProfilePhoto(){
         final long ONE_MEGABYTE = 1024 * 1024 * 20;
@@ -96,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
                             nameTV.setText(name);
                             setActionBarTitle(name);
                             username = String.valueOf(document.get("username"));
-                            usernameTV.setText(username);
+                            usernameTV.setText("@"+username);
                             bio = String.valueOf(document.get("bio"));
                             bioTV.setText(bio);
                             setReviewsRV();
@@ -121,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
     private void getReviews(){
         database.collection("reviews")
-                .whereEqualTo("reviewer-id", profileID)
+                .whereEqualTo("user", profileID)
                 .orderBy("time", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -141,9 +141,13 @@ public class ProfileActivity extends AppCompatActivity {
     private void addReviewToList(DocumentSnapshot document){
         Review review = new Review();
         review.setId(document.getId());
-        review.setBook(String.valueOf(document.get("book")));
+        review.setBook(String.valueOf(document.get("title")));
         review.setReviewText(String.valueOf(document.get("review")));
         review.setTime((Long) document.get("time"));
+        review.setLikesCount((long) document.get("likes-count"));
+        review.setDislikesCount((long) document.get("dislikes-count"));
+        review.setLikesUsers((ArrayList<String>) document.get("likes-users"));
+        review.setDislikesUsers((ArrayList<String>) document.get("dislikes-users"));
         reviewsList.add(review);
         adapter.notifyDataSetChanged();
     }

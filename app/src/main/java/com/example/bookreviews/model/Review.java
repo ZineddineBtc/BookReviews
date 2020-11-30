@@ -3,10 +3,18 @@ package com.example.bookreviews.model;
 import java.util.ArrayList;
 
 public class Review {
-    private String id, book, reviewText,reviewerID, reviewerUsername, reviewerName;
+    private String id, bookID, book, reviewText,reviewerID, reviewerUsername, reviewerName;
     private long time, likesCount, dislikesCount;
     private boolean liked, disliked;
     private ArrayList<String> likesUsers, dislikesUsers;
+
+    public String getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(String bookID) {
+        this.bookID = bookID;
+    }
 
     public ArrayList<String> getLikesUsers() {
         return likesUsers;

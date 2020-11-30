@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookreviews.R;
 import com.example.bookreviews.StaticClass;
-import com.example.bookreviews.activity.core.AddBookReviewActivity;
+import com.example.bookreviews.activity.core.CreateBookReviewActivity;
 import com.example.bookreviews.adapter.SearchBookAdapter;
 import com.example.bookreviews.adapter.SearchUserAdapter;
 import com.example.bookreviews.model.Book;
@@ -31,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -99,7 +98,7 @@ public class SearchFragment extends Fragment {
             }
         });
         addBookReviewFAB.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) { startActivity(new Intent(context, AddBookReviewActivity.class)); }});
+            @Override public void onClick(View v) { startActivity(new Intent(context, CreateBookReviewActivity.class)); }});
         booksTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +182,7 @@ public class SearchFragment extends Fragment {
         Book book = new Book();
         book.setId(document.getId());
         book.setTitle(String.valueOf(document.get("title")));
-        book.setReviewsNumber((long) document.get("reviews"));
+        book.setReviewsNumber((long) document.get("reviews-number"));
         booksList.add(book);
         searchBookAdapter.notifyDataSetChanged();
     }
@@ -217,7 +216,7 @@ public class SearchFragment extends Fragment {
         if(document.getId().equals(email)) return;
         User user = new User();
         user.setId(document.getId());
-        user.setUsername(String.valueOf(document.get("city")));
+        user.setUsername(String.valueOf(document.get("username")));
         user.setName(String.valueOf(document.get("name")));
         usersList.add(user);
         searchUserAdapter.notifyDataSetChanged();

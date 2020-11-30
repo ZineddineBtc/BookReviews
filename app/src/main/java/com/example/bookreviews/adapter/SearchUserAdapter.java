@@ -51,7 +51,7 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserAdapter.Vi
         final User user = usersList.get(position);
         setUserPhoto(holder, user.getId());
         holder.nameTV.setText(user.getName());
-        holder.usernameTV.setText(user.getUsername());
+        holder.usernameTV.setText("@"+user.getUsername());
         holder.userLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

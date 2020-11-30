@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.core.BookReviewsActivity"></activity>
-        <activity android:name=".activity.core.AddBookReviewActivity" />
+        <activity android:name=".activity.core.CreateBookReviewActivity" />
         <activity android:name=".activity.core.ProfileActivity" />
         <activity android:name=".activity.core.MyReviewsActivity" />
         <activity

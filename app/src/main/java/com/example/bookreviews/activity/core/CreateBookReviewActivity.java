@@ -24,6 +24,8 @@ import com.example.bookreviews.StaticClass;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class AddBookReviewActivity extends AppCompatActivity {
+public class CreateBookReviewActivity extends AppCompatActivity {
 
     private ImageView photoIV;
     private TextView nameTV, usernameTV, errorTV;
@@ -39,7 +41,7 @@ public class AddBookReviewActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private FirebaseStorage storage;
     private SharedPreferences sharedPreferences;
-    private String email, title, reviewText;
+    private String email, name, username, title, reviewText, bookID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +68,10 @@ public class AddBookReviewActivity extends AppCompatActivity {
     private void setUserData(){
         email = sharedPreferences.getString(StaticClass.EMAIL, "no email");
         getPhoto();
-        nameTV.setText(sharedPreferences.getString(StaticClass.NAME, "no name"));
-        usernameTV.setText(sharedPreferences.getString(StaticClass.USERNAME, "no name"));
+        name = sharedPreferences.getString(StaticClass.NAME, "no name");
+        nameTV.setText(name);
+        username = sharedPreferences.getString(StaticClass.USERNAME, "no name");;
+        usernameTV.setText(username);
     }
     private void getPhoto(){
         final long ONE_MEGABYTE = 1024 * 1024 * 20;
@@ -102,10 +106,7 @@ public class AddBookReviewActivity extends AppCompatActivity {
     private void post(){
         if(!validData())
             return;
-        DocumentReference reviewReference = database.collection("reviews")
-                .document();
-        reviewReference.set(reviewMap());
-        startActivity(new Intent(getApplicationContext(), CoreActivity.class));
+        appendBookTitle();
     }
     private boolean validData(){
         title = bookTitleET.getText().toString();
@@ -122,15 +123,34 @@ public class AddBookReviewActivity extends AppCompatActivity {
     }
     private HashMap<String, Object> reviewMap(){
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user", email);
+        map.put("reviewer-id", email);
+        map.put("reviewer-name", name);
+        map.put("reviewer-username", username);
         map.put("title", title);
         map.put("review", reviewText);
         map.put("likes-count", 0);
         map.put("dislikes-count", 0);
         map.put("likes-users", new ArrayList<String>());
         map.put("dislikes-users", new ArrayList<String>());
+        map.put("book-id", bookID);
         map.put("time", System.currentTimeMillis());
         return map;
+    }
+    private void appendBookTitle(){
+        DocumentReference document = database.collection("app-data")
+                .document("books");
+        bookID = document.getId();
+        document.update("books", FieldValue.arrayUnion(bookTitleET.getText().toString()));
+        HashMap<String, Object> bookCollectionDocMap = new HashMap<>();
+        bookCollectionDocMap.put("title", bookTitleET.getText().toString());
+        bookCollectionDocMap.put("reviews-number", 0);
+        database.collection("books")
+                .document()
+                .set(bookCollectionDocMap);
+        DocumentReference reviewReference = database.collection("reviews")
+                .document();
+        reviewReference.set(reviewMap());
+        startActivity(new Intent(getApplicationContext(), CoreActivity.class));
     }
     private void displayErrorTV(int resourceID) {
         errorTV.setText(resourceID);

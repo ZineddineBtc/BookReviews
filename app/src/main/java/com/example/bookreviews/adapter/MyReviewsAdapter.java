@@ -37,7 +37,7 @@ public class MyReviewsAdapter extends RecyclerView.Adapter<MyReviewsAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.profile_review_row, parent, false);
+        View view = mInflater.inflate(R.layout.my_book_review_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -74,8 +74,8 @@ public class MyReviewsAdapter extends RecyclerView.Adapter<MyReviewsAdapter.View
         }
         private void findViewsByIds(){
             timeTV = itemView.findViewById(R.id.timeTV);
-            titleTV = itemView.findViewById(R.id.titleTV);
-            reviewTextTV = itemView.findViewById(R.id.reviewTV);
+            titleTV = itemView.findViewById(R.id.bookTitleTV);
+            reviewTextTV = itemView.findViewById(R.id.reviewTextTV);
             likesCountTV = itemView.findViewById(R.id.likesCountTV);
             dislikesCountTV = itemView.findViewById(R.id.dislikesCountTV);
         }

@@ -91,8 +91,8 @@ public class MyReviewsActivity extends AppCompatActivity {
     private void getReviewFromDocument(DocumentSnapshot document){
         Review review = new Review();
         review.setId(document.getId());
-        review.setBook(String.valueOf(document.get("book")));
-        review.setReviewText(String.valueOf(document.get("review-text")));
+        review.setBook(String.valueOf(document.get("title")));
+        review.setReviewText(String.valueOf(document.get("review")));
         review.setTime((long)document.get("time"));
         review.setLikesCount((long)document.get("likes-count"));
         review.setDislikesCount((long)document.get("dislikes-count"));
