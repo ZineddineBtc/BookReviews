@@ -26,13 +26,11 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.Vi
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
-    private FirebaseStorage storage;
 
     public SearchBookAdapter(Context context, List<Book> data) {
         this.mInflater = LayoutInflater.from(context);
         this.booksList = data;
         this.context = context;
-        this.storage = FirebaseStorage.getInstance();
     }
 
     @Override

@@ -53,6 +53,7 @@ public class BookReviewsActivity extends AppCompatActivity {
     }
     private void setBookInfo(){
         String title = getIntent().getStringExtra(StaticClass.BOOK_TITLE);
+        titleTV.setText(title);
         if(title != null) titleTV.setText(title);
         long reviewsNumber = getIntent().getLongExtra(StaticClass.BOOK_REVIEWS_NUMBER, 0);
         if(title != null){
@@ -62,7 +63,7 @@ public class BookReviewsActivity extends AppCompatActivity {
             }else{
                 reviewsNumberString = reviewsNumber + " review";
             }
-            titleTV.setText(reviewsNumberString);
+            reviewsNumberTV.setText(reviewsNumberString);
         }
     }
     private void setRecyclerView(){
